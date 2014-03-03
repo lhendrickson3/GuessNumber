@@ -6,7 +6,9 @@
 
 package model;
 
+import beans.GuessBean;
 import java.io.Serializable;
+import java.util.Random;
 import javax.inject.Named;
 
 /**
@@ -15,17 +17,22 @@ import javax.inject.Named;
  */
 public class GuessExpert implements Serializable{
     private static final long serialVersionUID = 1;
+    private String message;
+    private GuessBean gb;
     
-    public String getHintMessage(String guessResult){
-        String hint = "";
-        
-        if (guessResult.equals("low")){
-            hint = "Guess Higher!";
-        } else if (guessResult.equals("high")){
-            hint = "Guess Lower!";
-        } else if (guessResult.equals("right")){
-            hint = "Congratulations! You have guessed correctly!";
+    Random rand = new Random();
+
+    private int random = rand.nextInt(100) + 1;
+    
+    public String getHintMessage(int guess) {
+        if (guess < random){
+            message = "Guess Higher!";
+        }else if (guess > random){
+            message = "Guess Lower!";
+        }else if (guess == random){
+            message = "Congratulations! You have guessed correctly!";
         }
-        return hint;
+        return message;
     }
+    
 }
